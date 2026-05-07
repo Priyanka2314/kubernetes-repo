@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  labels:
+    app: myapp
+spec:
+  containers:
+    - name: my-container
+      image: nginx
+      volumeMounts:
+        - name: my-pv
+          mountPath: /mnt/data
+  volumes:
+    - name: my-pv
+      persistentVolumeClaim:
+        claimName: democlaim

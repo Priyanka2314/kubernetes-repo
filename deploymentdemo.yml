@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      type: frontend
+  template:
+    metadata:
+      labels:
+        type: frontend
+    spec:
+      containers:
+        - name: demodeploycontainer
+          image: nginx:1.18
+          ports:
+            - containerPort: 80
