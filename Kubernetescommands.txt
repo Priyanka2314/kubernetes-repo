@@ -1,0 +1,417 @@
+# Kubernetes Commands Reference
+
+Source Reference: 
+
+---
+
+1. Kubernetes Cluster Setup Commands
+
+---
+
+Enable kubelet service
+Command:
+sudo systemctl enable --now kubelet
+
+Purpose:
+Starts and enables kubelet service at boot.
+
+Check kubelet status
+Command:
+systemctl status kubelet
+
+Purpose:
+Shows kubelet service status.
+
+Install containerd
+Command:
+sudo apt install -y containerd
+
+Purpose:
+Installs container runtime for Kubernetes.
+
+Start containerd
+Command:
+sudo systemctl start containerd
+
+Purpose:
+Starts containerd service.
+
+Enable containerd at boot
+Command:
+sudo systemctl enable containerd
+
+Purpose:
+Automatically starts containerd after reboot.
+
+Check containerd status
+Command:
+systemctl status containerd
+
+Purpose:
+Displays containerd service state.
+
+---
+
+2. Kubernetes Cluster Initialization
+
+---
+
+Initialize Kubernetes master node
+Command:
+sudo kubeadm init --apiserver-advertise-address=<IP> --pod-network-cidr=10.244.0.0/16
+
+Example:
+sudo kubeadm init --apiserver-advertise-address=172.31.20.155 --pod-network-cidr=10.244.0.0/16
+
+Purpose:
+Creates Kubernetes control plane cluster.
+
+---
+
+3. Network Configuration Commands
+
+---
+
+Load bridge network module
+Command:
+sudo modprobe br_netfilter
+
+Purpose:
+Enables bridge networking support.
+
+Enable IP forwarding
+Command:
+echo "net.ipv4.ip_forward = 1" | sudo tee /etc/sysctl.d/k8s.conf
+
+Purpose:
+Allows packet forwarding for pods.
+
+Apply sysctl settings
+Command:
+sudo sysctl --system
+
+Purpose:
+Reloads Linux kernel network settings.
+
+Verify IP forwarding
+Command:
+cat /proc/sys/net/ipv4/ip_forward
+
+Purpose:
+Checks if IP forwarding is enabled.
+
+---
+
+4. Flannel Network Plugin
+
+---
+
+Install Flannel CNI
+Command:
+kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+Purpose:
+Installs pod networking for Kubernetes.
+
+---
+
+5. Kubernetes Config Commands
+
+---
+
+Create kube config directory
+Command:
+mkdir -p $HOME/.kube
+
+Purpose:
+Creates Kubernetes config folder.
+
+View cluster info
+Command:
+kubectl cluster-info
+
+Purpose:
+Displays cluster endpoint details.
+
+---
+
+6. Node Commands
+
+---
+
+List nodes
+Command:
+kubectl get nodes
+
+Purpose:
+Shows all cluster nodes.
+
+Detailed node info
+Command:
+kubectl get nodes -o wide
+
+Purpose:
+Shows nodes with IPs and extra details.
+
+---
+
+7. Event Commands
+
+---
+
+View cluster events
+Command:
+kubectl get events
+
+Purpose:
+Shows Kubernetes events and issues.
+
+---
+
+8. Pod Commands
+
+---
+
+Create pod directly
+Command:
+kubectl run demopod --image nginx
+
+Purpose:
+Creates nginx pod quickly.
+
+List pods
+Command:
+kubectl get pods
+
+Purpose:
+Displays all running pods.
+
+Show pod labels
+Command:
+kubectl get pods --show-labels
+
+Purpose:
+Displays pods with labels.
+
+Describe pods
+Command:
+kubectl describe pods
+
+Purpose:
+Shows detailed pod information.
+
+Describe specific pod
+Command:
+kubectl describe pod <pod-name>
+
+Example:
+kubectl describe pod mydeployment-5c58878f47-82plc
+
+Purpose:
+Displays complete pod details.
+
+View pod logs
+Command:
+kubectl logs <pod-name>
+
+Example:
+kubectl logs demopod
+
+Purpose:
+Shows application logs from pod.
+
+Enter pod terminal
+Command:
+kubectl exec -it <pod-name> -- bash
+
+Example:
+kubectl exec -it my-pod -- bash
+
+Purpose:
+Opens shell inside container.
+
+Delete pod
+Command:
+kubectl delete pod <pod-name>
+
+Example:
+kubectl delete pod my-pod
+
+Purpose:
+Removes pod from cluster.
+
+---
+
+9. Namespace Commands
+
+---
+
+List namespaces
+Command:
+kubectl get namespaces
+
+Purpose:
+Displays all namespaces.
+
+Get pods from namespace
+Command:
+kubectl get pods -n kube-system
+
+Purpose:
+Lists pods in kube-system namespace.
+
+---
+
+10. YAML Deployment Commands
+
+---
+
+Apply YAML file
+Command:
+kubectl apply -f <file-name>
+
+Example:
+kubectl apply -f demopodmanifestation.yml
+
+Purpose:
+Creates or updates Kubernetes resources.
+
+View supported API versions
+Command:
+kubectl api-versions
+
+Purpose:
+Lists Kubernetes API versions.
+
+---
+
+11. Deployment Commands
+
+---
+
+List deployments
+Command:
+kubectl get deployments
+
+Purpose:
+Shows all deployments.
+
+Describe deployment
+Command:
+kubectl describe deployment <deployment-name>
+
+Example:
+kubectl describe deployment mydeployment
+
+Purpose:
+Shows deployment details.
+
+Check rollout status
+Command:
+kubectl rollout status deployment <deployment-name>
+
+Purpose:
+Shows deployment update progress.
+
+View rollout history
+Command:
+kubectl rollout history deployment <deployment-name>
+
+Purpose:
+Displays deployment revision history.
+
+Rollback deployment
+Command:
+kubectl rollout undo deployment <deployment-name>
+
+Purpose:
+Reverts deployment to previous version.
+
+---
+
+12. Service Commands
+
+---
+
+List services
+Command:
+kubectl get services
+
+Purpose:
+Displays Kubernetes services.
+
+Alternative service command
+Command:
+kubectl get service
+
+Purpose:
+Same as above.
+
+---
+
+13. Persistent Volume Commands
+
+---
+
+List Persistent Volumes
+Command:
+kubectl get pv
+
+Purpose:
+Displays all persistent volumes.
+
+Alternative PV command
+Command:
+kubectl get persistentvolume
+
+Purpose:
+Shows persistent storage volumes.
+
+List Persistent Volume Claims
+Command:
+kubectl get pvc
+
+Purpose:
+Displays storage claims.
+
+---
+
+14. Linux Utility Commands Used
+
+---
+
+View public IP
+Command:
+curl ifconfig.me
+
+Purpose:
+Displays EC2 public IP.
+
+View command history
+Command:
+history
+
+Purpose:
+Shows previously executed commands.
+
+List files
+Command:
+ls -lrth
+
+Purpose:
+Displays files with size and timestamps.
+
+Edit file
+Command:
+vi <file-name>
+
+Purpose:
+Opens file in VI editor.
+
+Remove file
+Command:
+rm <file-name>
+
+Purpose:
+Deletes file.
+
