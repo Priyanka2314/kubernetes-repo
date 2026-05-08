@@ -1,0 +1,267 @@
+# Helm Commands Reference
+Link for commands and installation: https://helm.sh/docs/helm/helm_install
+`---
+
+1. Helm Installation Commands
+
+---
+
+Download Helm installation script
+Command:
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+
+Purpose:
+Downloads Helm installation script from official repository.
+
+List files
+Command:
+ls -ltrha
+
+Purpose:
+Displays files with permissions and timestamps.
+
+Give execute permission
+Command:
+chmod 700 get_helm.sh
+
+Purpose:
+Makes Helm script executable.
+
+Run Helm installation script
+Command:
+./get_helm.sh
+
+Purpose:
+Installs Helm in the system.
+
+Check Helm version
+Command:
+helm version
+
+Purpose:
+Displays installed Helm version.
+
+---
+
+2. Helm Repository Commands
+
+---
+
+Add Bitnami Helm repository
+Command:
+helm repo add bitnami https://charts.bitnami.com/bitnami
+
+Purpose:
+Adds Bitnami chart repository to Helm.
+
+Search all charts in repository
+Command:
+helm search repo bitnami
+
+Purpose:
+Lists all available Bitnami Helm charts.
+
+Search nginx chart
+Command:
+helm search repo bitnami | grep -i nginx
+
+Purpose:
+Filters nginx-related charts from repository.
+
+---
+
+3. Helm Chart Download Commands
+
+---
+
+Pull chart from URL
+Command:
+helm pull --untar https://charts.bitnami.com/
+
+Purpose:
+Downloads and extracts Helm chart.
+
+Pull nginx chart
+Command:
+helm pull --untar bitnami/nginx
+
+Purpose:
+Downloads and extracts nginx Helm chart locally.
+
+List extracted files
+Command:
+ls -ltrh
+
+Purpose:
+Displays downloaded chart files.
+
+---
+
+4. Helm Chart Structure Commands
+
+---
+
+Move into nginx chart directory
+Command:
+cd nginx/
+
+Purpose:
+Opens nginx Helm chart folder.
+
+List chart files
+Command:
+ls -alth
+
+Purpose:
+Displays all chart files and folders.
+
+View Chart.yaml
+Command:
+vi Chart.yaml
+
+Purpose:
+Opens chart metadata file.
+
+Templates directory
+Path:
+templates/
+
+Purpose:
+Contains Kubernetes YAML templates like:
+
+* Deployment
+* Service
+* Pod
+* PersistentVolume
+* PersistentVolumeClaim
+* ConfigMap
+* Ingress
+
+Move into templates directory
+Command:
+cd templates/
+
+Purpose:
+Opens templates folder.
+
+List template files
+Command:
+ls -lrth
+
+Purpose:
+Displays all template YAML files.
+
+Edit deployment template
+Command:
+vi deployment.yaml
+
+Purpose:
+Opens deployment template file.
+
+Move back to parent directory
+Command:
+cd ..
+
+Purpose:
+Returns to previous directory.
+
+Edit values file
+Command:
+vi values.yaml
+
+Purpose:
+Opens default configurable values for chart.
+
+---
+
+5. Custom Values Commands
+
+---
+
+Create custom values file
+Command:
+vi demovalues.yml
+
+Purpose:
+Creates custom configuration values for Helm deployment.
+
+---
+
+6. Helm Deployment Commands
+
+---
+
+Install Helm chart
+Command:
+helm install priyanka bitnami/nginx -f demovalues.yml
+
+Purpose:
+Deploys nginx Helm chart using custom values.
+
+Where:
+
+* priyanka = release name
+* bitnami/nginx = chart name
+* demovalues.yml = custom configuration
+
+List Helm releases
+Command:
+helm list
+
+Purpose:
+Displays all installed Helm releases.
+
+---
+
+7. Kubernetes Verification Commands
+
+---
+
+List running pods
+Command:
+kubectl get pods
+
+Purpose:
+Shows running application pods.
+
+List deployments
+Command:
+kubectl get deployments
+
+Purpose:
+Displays deployment resources.
+
+List services
+Command:
+kubectl get services
+
+Purpose:
+Displays Kubernetes services.
+
+View public IP
+Command:
+curl ifconfig.me
+
+Purpose:
+Displays server public IP.
+
+---
+
+8. Helm Cleanup Commands
+
+---
+
+Delete Helm release
+Command:
+helm delete priyanka
+
+Purpose:
+Removes deployed Helm release and related resources.
+
+Verify pod deletion
+Command:
+kubectl get pods
+
+Purpose:
+Checks whether pods are removed after Helm delete.
+
